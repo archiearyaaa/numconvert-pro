@@ -34,6 +34,4 @@ export function useConversion() {
   }
 
   return { result, error, convert }
-}git add .
-git commit -m "Final conversion logic - production ready"
-git push
+}
