@@ -19,35 +19,41 @@ export function isValidHex(value: string): boolean {
 }
 
 // ===============================
-// CONVERSION FUNCTIONS
+// CORE CONVERSION
 // ===============================
 
-export function binaryToDecimal(value: string): number | null {
-  if (!isValidBinary(value)) return null
-  return parseInt(value, 2)
-}
+export function convertToAll(value: string, base: number) {
+  let decimal: number | null = null
 
-export function octalToDecimal(value: string): number | null {
-  if (!isValidOctal(value)) return null
-  return parseInt(value, 8)
-}
+  switch (base) {
+    case 2:
+      if (!isValidBinary(value)) return null
+      decimal = parseInt(value, 2)
+      break
 
-export function decimalToBinary(value: string): string | null {
-  if (!isValidDecimal(value)) return null
-  return parseInt(value, 10).toString(2)
-}
+    case 8:
+      if (!isValidOctal(value)) return null
+      decimal = parseInt(value, 8)
+      break
 
-export function decimalToOctal(value: string): string | null {
-  if (!isValidDecimal(value)) return null
-  return parseInt(value, 10).toString(8)
-}
+    case 10:
+      if (!isValidDecimal(value)) return null
+      decimal = parseInt(value, 10)
+      break
 
-export function decimalToHex(value: string): string | null {
-  if (!isValidDecimal(value)) return null
-  return parseInt(value, 10).toString(16).toUpperCase()
-}
+    case 16:
+      if (!isValidHex(value)) return null
+      decimal = parseInt(value, 16)
+      break
 
-export function hexToDecimal(value: string): number | null {
-  if (!isValidHex(value)) return null
-  return parseInt(value, 16)
+    default:
+      return null
+  }
+
+  return {
+    binary: decimal.toString(2),
+    octal: decimal.toString(8),
+    decimal: decimal.toString(10),
+    hex: decimal.toString(16).toUpperCase(),
+  }
 }
